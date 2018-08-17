@@ -1,0 +1,4 @@
+ CALL          Date      time    his   My     Freq   Mode  code    GL   QSL  His Name     QTH      Remarks1             Remark2    ?
+"JA6WFM/6","18/08/04","18:06J","599","599","21.057","CW","   ","    ","J","         ","        ","2018 FD Contest "," 21.057MHz","0"
+"JA6RGD/6","18/08/04","18:07J","599","599","21.056","CW","","","J","","","2018 FD Contest "," 21.056MHz","0"
+"JR8LRQ/8","18/08/04","18:09J","599","599","21.053","CW","","","J","","","2018 FD Contest "," 21.053MHz","0"
