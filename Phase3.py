@@ -248,26 +248,36 @@ def phase3( call:str ):
             
     print('このログがUTCでロギングされている場合には、JSTに変換可能です。')        
 
-    okng = True
+    if JST_convert_flag  :
+    
+        okng = True
 
-    while okng:
-        print('ログ時刻UTCをJSTに変換しますか？ [U:UTC or J:JST]？')
-        UTC_JST = input('>> ').upper() 
+        while okng:
+            print('ログ時刻UTCをJSTに変換しますか？')            
+            yesno = input("[Y or N] >> ")
+            if yesno == "Y":
+                okng =  False
+            elif yesno == "N":
+                okng = True
+                break
+                
+            print('ログ時刻UTCをJSTに変換しますか？ [U:UTC or J:JST]？')
+            UTC_JST = input('>> ').upper() 
 
-        if UTC_JST=="J" :
-            JST_convert_flag = True   
-        elif  UTC_JST=="U" :
-            JST_convert_flag = False
+            if UTC_JST=="J" :
+                JST_convert_flag = True   
+            elif  UTC_JST=="U" :
+                JST_convert_flag = False
+            print("\n")
+            print('時刻基準[U:UTC,J:JST] ---> ' + UTC_JST )
+            print('この基準時刻を変換して良いですか?' )
+            yesno = input("[Y or N] >> ")
+            if yesno == "Y":
+                okng =  False
+            elif yesno == "N":
+                okng = True                        
+                
         print("\n")
-        print('時刻基準[U:UTC,J:JST] ---> ' + UTC_JST )
-        print('この基準時刻を変換して良いですか?' )
-        yesno = input("[Y or N] >> ")
-        if yesno == "Y":
-            okng =  False
-        elif yesno == "N":
-            okng = True                        
-            
-    print("\n")
             
     #------------------------------------------------------------------------
     #
@@ -287,7 +297,8 @@ def phase3( call:str ):
         if yesno == "Y":
             okng =  False
         elif yesno == "N":
-            okng = False
+            okng = True
+            Remarks1 = ""
 
         print("\n")
 
@@ -432,7 +443,7 @@ def phase3( call:str ):
                     dHL = dt
     #                print("3: "+ str(dt) )
                 elif JST_convert_flag == False : 
-                    dt = datetime.datetime.strptime(dtstr, "%Y%m%d %H%M")
+                    dt = datetime.strptime(dtstr, "%Y%m%d %H%M")
                     dHL = dt
     #                print("4: "+ str(dt) )
 

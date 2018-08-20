@@ -47,28 +47,34 @@ print("+------------------------------------------------------------------------
 print("+-------------------------------------------------------------------------+")
 #------------------------------------------
 
-#Phase0を起動
+#     Phase0を起動
+#           サマリー作成、コールサイン取得、フィールドデーコンテスト係数取得
 Ph0_data = phase0()
 
 #print(Ph0_data)
+Callsign = Ph0_data[0]
 #print(Ph0_data[0])
-FD_coe = int(Ph0_data[0])
+FD_coe = int(Ph0_data[1])
 #print(Ph0_data[1])
-Callsign = Ph0_data[1]
 
 print("*** Completed the phase0 process"+"\n")
 
 
-#Phase1を起動
+#  Phase1を起動
+#       ADIFファイルのログライン分割を1ラインに修正
+
 phase1( Callsign )
 print("*** Completed the phase1 process"+"\n")
 
 
-#Phase2を起動
+#  Phase2を起動
+#     スコアサマリーの生成、JARLサマリーシートへ得点を転記
+
 phase2( Callsign,FD_coe )
 print("*** Completed the phase2 process"+"\n")
 
 
 #Phase3を起動
+
 phase3(Callsign)
 print("*** Completed the phase3 process"+"\n")

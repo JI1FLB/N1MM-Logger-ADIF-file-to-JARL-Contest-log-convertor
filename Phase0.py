@@ -39,23 +39,31 @@ def phase0():
         print('ゲストオペ運用ですか？。')
         yesno = input("[Y or N] >> ")
         if yesno == "Y":
-            okng = False
+            GestOP_flag = "Y"
         
-            print('ゲストオペレータのコールサインを入力してください。')
-            GestOP_Callsign = input('>> ').upper()
-            print('入力したコールサイン --> ' + GestOP_Callsign )
-            print('このコールサインで良いですか? [Y or N]')
-            yesno = input("[Y or N] >> ")
+#            print('ゲストオペレータのコールサインを入力してください。')
+#            GestOP_Callsign = input('>> ').upper()
+#            print('入力したコールサイン --> ' + GestOP_Callsign )
+#            print('このコールサインで良いですか? [Y or N]')
+#            yesno = input("[Y or N] >> ")
         
-            if yesno == "Y":
-                okng = False
-                GestOP_flag = "Y"
-            else:
-                okng = True
-        else:
-            okng = False
+#            if yesno == "Y":
+#                okng = False
+#                GestOP_flag = "Y"
+#            else:
+#                okng = True
+        elif yesno == "N":
             GestOP_flag = "N"
 
+        print('この判断で良いですか？[Y or N]')
+        yesno = input("[Y or N] >> ")
+        if yesno == "Y":
+            okng = False
+        else:
+            okng = True
+
+
+        
 
 #------------------------------------------------------------------------
 #
@@ -71,8 +79,8 @@ def phase0():
         yesno = input("[Y or N] >> ")
         if yesno == "Y":
             FD_flag ="Y"
-            FD_coe = 2
-            Ph0.append(str(FD_coe))
+#            FD_coe = 2
+#            Ph0.append(str(FD_coe))
             okng = False
 
         elif yesno == "N":
@@ -107,6 +115,13 @@ def phase0():
 
     print('\n')
 
+#------------------------------------------------------------------------
+#
+#   コールサイン取得
+#   サマリーシート作成
+#
+   
+
     fill_in = fill_in_form.readlines()
 
     for fill in fill_in :
@@ -123,7 +138,11 @@ def phase0():
 
     summary.write( "<SUMMARYSHEET VERSION=R2.0>" + "\n")
 
-    fill_in_form.seek(0)
+    fill_in_form.close()
+    fill_in_form = open( "form.txt" ,"r", encoding='utf-8')
+
+#    fill_in_form.seek(0)
+    fill_in = fill_in_form.readlines()
 
     for fill in fill_in :
         fill = fill.rstrip('\n')
@@ -139,9 +158,9 @@ def phase0():
         if "コールサイン" == fill[0] :
             summary.write( "<CALLSIGN>" + fill[1] + "</CALLSIGN>"  + "\n")
 
-
         if "ゲストオペ運用者のコールサイン" == fill[0] and GestOP_flag == "Y":
-            summary.write( "<CALLSIGN>" + GestOP_Callsign + "</CALLSIGN>"  + "\n")
+#        if GestOP_flag == "Y":
+            summary.write( "<OPCALLSIGN>" + fill[1] + "</OPCALLSIGN>"  + "\n")
         
         if "連絡先住所" == fill[0] :
             summary.write( "<ADDRESS>" + fill[1] + "</ADDRESS>"  + "\n")
@@ -161,7 +180,9 @@ def phase0():
             summary.write( "<POWER>" + fill[1] + "</POWER>"  + "\n")
 
         if "フィールドデーコンテストの場合の局種係数" == fill[0] and FD_flag == "Y" :
-            summary.write( "<FDCOEFF>" + fill[1] + "</FDCOEFF>"  + "\n")        
+            summary.write( "<FDCOEFF>" + fill[1] + "</FDCOEFF>"  + "\n")
+            FD_coe = fill[1]
+            Ph0.append(str(FD_coe))
 
         if "運用地" == fill[0] and FD_flag == "Y"  :
             summary.write( "<OPPLACE>" + fill[1] + "</OPPLACE>"  + "\n")
@@ -172,8 +193,8 @@ def phase0():
         if "意見" == fill[0] :
             summary.write( "<COMMENTS>" + fill[1] + "</COMMENTS>"  + "\n")
 
-#    if "マルチオペ種目運用者のコールサインまたは氏名" == fill[0] and Multi_OP_flag == "Y" :
-        if Multi_OP_flag == "Y" :
+        if "マルチオペ種目運用者のコールサインまたは氏名" == fill[0] and Multi_OP_flag == "Y" :
+#        if Multi_OP_flag == "Y" :
             summary.write( "<MULTIOPLIST>" + fill[1] + "</MULTIOPLIST>"  + "\n")
 
         if "登録クラブ番号" == fill[0] :
