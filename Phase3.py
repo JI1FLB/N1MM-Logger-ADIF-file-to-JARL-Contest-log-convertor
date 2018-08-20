@@ -1,7 +1,10 @@
-def phase3( a:str ):
+def phase3( call:str ):
 
     import os
-    import datetime
+    from datetime import datetime
+    from datetime import timedelta
+    from datetime import time
+
 
     file_name = ""
     forming_file = ""
@@ -14,7 +17,6 @@ def phase3( a:str ):
     HL_line = ""
     summary_file = ""
     Callsign = ""
-    Call =""
     okng = True
     dt = ""
     t = ""
@@ -26,7 +28,7 @@ def phase3( a:str ):
     #
     #
 
-    Callsign = a
+    Callsign = call
 
     score_file = Callsign + "_score.txt"
     forming_file =Callsign + "_forming.adi"
@@ -178,6 +180,7 @@ def phase3( a:str ):
         print("\n")
         print('コンテストナンバーを入力してください。')
         My_multi = input('>> ').upper()
+        print( "\n" )
         print('入力したコンテストナンバー --> ' + My_multi )
         print('このコンテストナンバーで良いですか? [Y or N]')
         yesno = input("[Y or N] >> ")
@@ -202,7 +205,8 @@ def phase3( a:str ):
         print('パワーコードを変換しますか[Y or N]？')
         yesno = input('>> ')
         print('この判断は ---> ' + yesno )
-        print('この判断でよろしいですね? [Y or N]')
+        print("\n")
+        print('この判断でよろしいですか? [Y or N]')
         yesno = input("[Y or N] >> ")
         if yesno == "Y":
             Power_code = True
@@ -226,7 +230,6 @@ def phase3( a:str ):
     okng = True
 
     while okng :
-        print('N1MM logger+では通常UTCでロギングします。')
         print('このログはJSTでロギングしていますか？')
         yesno = input("[Y or N] >> ")
         if yesno == "Y":
@@ -255,8 +258,9 @@ def phase3( a:str ):
             JST_convert_flag = True   
         elif  UTC_JST=="U" :
             JST_convert_flag = False
+        print("\n")
         print('時刻基準[U:UTC,J:JST] ---> ' + UTC_JST )
-        print('この基準時刻で良いですか?' )
+        print('この基準時刻を変換して良いですか?' )
         yesno = input("[Y or N] >> ")
         if yesno == "Y":
             okng =  False
@@ -276,6 +280,7 @@ def phase3( a:str ):
         print('ハムログ用のCSVファイルを作成します。')
         print('ハムログのRemarks1の記述内容を入力してください。')
         Remarks1 = input('>> ')
+        print("\n")
         print('記述内容はこれでよろしいですか？ ---> ' + Remarks1 )
         print('これで良いですか?  [Y or N]')
         yesno = input("[Y or N] >> ")
@@ -423,19 +428,22 @@ def phase3( a:str ):
                 dtstr= QSO_DATE +" "+ TIME_ON
     #            print( "2: "+dtstr )
                 if JST_convert_flag == True : 
-                    dt = datetime.datetime.strptime(dtstr, '%Y%m%d %H%M%S')+datetime.timedelta(hours=9)
+                    dt = datetime.strptime(dtstr, '%Y%m%d %H%M')+timedelta(hours=9)
                     dHL = dt
     #                print("3: "+ str(dt) )
                 elif JST_convert_flag == False : 
-                    dt = datetime.datetime.strptime(dtstr, "%Y%m%d %H%M%S")
+                    dt = datetime.datetime.strptime(dtstr, "%Y%m%d %H%M")
                     dHL = dt
     #                print("4: "+ str(dt) )
 
                 
                 t=str(dt).split(" ")
+                
                 QSO_DATE_JARL = t[0]
     #            print("6: "+ QSO_DATE_JARL )
-                TIME_ON_JARL =  t[1]
+                c1 = str(t[1])
+                c2 = c1[0:5]
+                TIME_ON_JARL =  c2
     #            print("7: "+ TIME_ON_JARL )                
 
 
@@ -446,7 +454,7 @@ def phase3( a:str ):
                 tHL=str( dHL ).split(" ")
                 QSO_DATE_HL = tHL[0]
     #            print( "9: "+QSO_DATE_HL )
-                TIME_ON_HL = str(t[1]) + UTC_JST
+                TIME_ON_HL =  c2  + UTC_JST
     #            print("10: "+ TIME_ON_HL )
                         
 
