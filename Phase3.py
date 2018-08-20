@@ -311,7 +311,7 @@ def phase3( call:str ):
      
     #logsheet.write(line)
 
-    log_sheet.write( "<LOGSHEET TYPE=N1MM+logger and JARL format conveter>"  + "\n")
+    log_sheet.write( "<LOGSHEET TYPE=N1MM logger+ and JARL format conveter>"  + "\n")
 
     for log in logs:
 

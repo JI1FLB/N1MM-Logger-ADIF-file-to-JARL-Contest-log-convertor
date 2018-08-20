@@ -52,9 +52,11 @@ print("+------------------------------------------------------------------------
 Ph0_data = phase0()
 
 #print(Ph0_data)
-Callsign = Ph0_data[0]
+
+FD_coe = int(Ph0_data[0])
 #print(Ph0_data[0])
-FD_coe = int(Ph0_data[1])
+
+Callsign = Ph0_data[1]
 #print(Ph0_data[1])
 
 print("*** Completed the phase0 process"+"\n")
