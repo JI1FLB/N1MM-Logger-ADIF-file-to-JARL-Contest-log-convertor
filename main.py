@@ -51,13 +51,13 @@ print("+------------------------------------------------------------------------
 #           サマリー作成、コールサイン取得、フィールドデーコンテスト係数取得
 Ph0_data = phase0()
 
-#print(Ph0_data)
+print(Ph0_data)
 
 FD_coe = int(Ph0_data[0])
-#print(Ph0_data[0])
+print(Ph0_data[0])
 
 Callsign = Ph0_data[1]
-#print(Ph0_data[1])
+print(Ph0_data[1])
 
 print("*** Completed the phase0 process"+"\n")
 

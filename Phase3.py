@@ -206,16 +206,19 @@ def phase3( call:str ):
         yesno = input('>> ')
         print('この判断は ---> ' + yesno )
         print("\n")
-        print('この判断でよろしいですか? [Y or N]')
-        yesno = input("[Y or N] >> ")
+
         if yesno == "Y":
             Power_code = True
-            okng =  False
         elif yesno == "N":
             Power_code = False
-            okng = False
+            
+        print('この判断でよろしいですか? [Y or N]')        
+        yesno = input("[Y or N] >> ")
+        if yesno == "Y":
+            okng =  False
+        elif yesno == "N":
+            okng = True
         else:
-            Power_code = True
             okng = True
 
 
@@ -244,8 +247,9 @@ def phase3( call:str ):
             if yesno == "Y":
                 okng =  True
             elif yesno == "N":
-                okng =  False               
-            
+                okng =  False
+                
+    print("\n")            
     print('このログがUTCでロギングされている場合には、JSTに変換可能です。')        
 
     if JST_convert_flag  :
@@ -253,13 +257,13 @@ def phase3( call:str ):
         okng = True
 
         while okng:
-            print('ログ時刻UTCをJSTに変換しますか？')            
-            yesno = input("[Y or N] >> ")
-            if yesno == "Y":
-                okng =  False
-            elif yesno == "N":
-                okng = True
-                break
+#            print('ログ時刻UTCをJSTに変換しますか？')            
+#            yesno = input("[Y or N] >> ")
+#            if yesno == "Y":
+#                okng =  False
+#            elif yesno == "N":
+#                okng = True
+#                break
                 
             print('ログ時刻UTCをJSTに変換しますか？ [U:UTC or J:JST]？')
             UTC_JST = input('>> ').upper() 

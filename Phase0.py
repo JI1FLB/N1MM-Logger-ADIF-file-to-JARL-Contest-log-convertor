@@ -79,8 +79,6 @@ def phase0():
         yesno = input("[Y or N] >> ")
         if yesno == "Y":
             FD_flag ="Y"
-#            FD_coe = 2
-#            Ph0.append(str(FD_coe))
             okng = False
 
         elif yesno == "N":
@@ -159,7 +157,6 @@ def phase0():
             summary.write( "<CALLSIGN>" + fill[1] + "</CALLSIGN>"  + "\n")
 
         if "ゲストオペ運用者のコールサイン" == fill[0] and GestOP_flag == "Y":
-#        if GestOP_flag == "Y":
             summary.write( "<OPCALLSIGN>" + fill[1] + "</OPCALLSIGN>"  + "\n")
         
         if "連絡先住所" == fill[0] :
@@ -183,9 +180,9 @@ def phase0():
             summary.write( "<FDCOEFF>" + fill[1] + "</FDCOEFF>"  + "\n")
             FD_coe = fill[1]
             Ph0.append(str(FD_coe))
-        else:
-            FD_coe = "1"
-            Ph0.append(str(FD_coe))            
+#        elif "フィールドデーコンテストの場合の局種係数" == fill[0] and FD_flag == "N" :
+#            FD_coe = "1"
+#            Ph0.append(str(FD_coe))            
 
         if "運用地" == fill[0] and FD_flag == "Y"  :
             summary.write( "<OPPLACE>" + fill[1] + "</OPPLACE>"  + "\n")
@@ -197,7 +194,6 @@ def phase0():
             summary.write( "<COMMENTS>" + fill[1] + "</COMMENTS>"  + "\n")
 
         if "マルチオペ種目運用者のコールサインまたは氏名" == fill[0] and Multi_OP_flag == "Y" :
-#        if Multi_OP_flag == "Y" :
             summary.write( "<MULTIOPLIST>" + fill[1] + "</MULTIOPLIST>"  + "\n")
 
         if "登録クラブ番号" == fill[0] :

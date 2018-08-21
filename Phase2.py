@@ -406,7 +406,7 @@ def phase2( call:str, coe:int ):
     print("           作成年月日:" +str(todaydetail.strftime("%Y/%m/%d %H:%M:%S")) + "\n" )
     print( "" )
     print("---------------------------------------------" )
-    print(" BAND　QSOs points Multi ")
+    print(" BAND　QSOs points Multi Coefficent")
     print(" 160M -> ", QSO_160M , point_160M , Multi_160M )
     print("  80M -> ", QSO_80M , point_80M   , Multi_80M )
     print("  40M -> ", QSO_40M , point_40M   , Multi_40M )
@@ -438,7 +438,7 @@ def phase2( call:str, coe:int ):
     #
     score_log.write("      コンテストスコアシート         作成年月日:" +str(todaydetail.strftime("%Y/%m/%d %H:%M:%S")) + "\n" )
     score_log.write("---------------------------------------------" + " " + "\n" )
-    score_log.write(" BAND  QSOs  points  Multi "+ "\n" )
+    score_log.write(" BAND  QSOs  points  Multi  Coefficent"+ "\n" )
     score_log.write(" 160M -> "+ " " +  str( QSO_160M) + " " +  str( point_160M) + " " +  str( Multi_160M ) + " " + "\n" )
     score_log.write("  80M -> "+ " " +  str( QSO_80M) + " " +  str( point_80M)   + " " +  str( Multi_80M ) + " " + "\n")
     score_log.write("  40M -> "+ " " +  str( QSO_40M) + " " +  str( point_40M)   + " " +  str( Multi_40M ) + " " + "\n")
