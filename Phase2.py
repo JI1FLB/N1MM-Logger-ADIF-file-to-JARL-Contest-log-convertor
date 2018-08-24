@@ -143,10 +143,27 @@ def phase2( call:str, coe:int ):
 
     l=""
     TOTALSCORE = ""
+    Power_code = True
 
     #--------------------------------------
 
     logs = output_log.readlines()
+
+
+    okng = True
+    while okng :
+        print('マルチはパワーコードを利用していますか？')
+        yesno = input("[Y or N] >> ")
+        if yesno == "Y":
+            Power_code = True          
+            okng = False
+
+        elif yesno == "N":
+            Power_code = False              
+            okng = False
+                        
+        else:
+            okng = True
 
 
     for log in logs:
@@ -209,11 +226,15 @@ def phase2( call:str, coe:int ):
                 APP_N1MM_EXCHANGE1 = a[20+b2:21+b2+int(b1)]
                 APP_N1MM_EXCHANGE1 = APP_N1MM_EXCHANGE1.rstrip()
                 c = APP_N1MM_EXCHANGE1
-                c = c.rstrip("P")
-                c = c.rstrip("L")
-                c = c.rstrip("M")
-                c = c.rstrip("H")
+#                print( c +'\n')
                 
+                if Power_code :
+                        c = c.rstrip("L")
+                        c = c.rstrip("M")
+                        c = c.rstrip("H")
+                        c = c.rstrip("P")
+#                print( c +'\n')
+                        
                 if "160M" == BAND : 
                     M_160M.add( c )
                 elif "80M" == BAND : 
@@ -477,6 +498,7 @@ def phase2( call:str, coe:int ):
     score_log.write( "\n")
 
     score_log.write( "\n")
+    
     score_log.write( "40M Band"+"\n")
     for l in sorted( M_40M ) :
         score_log.write( l+" " )
