@@ -231,6 +231,7 @@ def phase3( call:str ):
     #
 
     okng = True
+    JST_convert_flag = True
 
     while okng :
         print('このログはJSTでロギングしていますか？')
@@ -245,9 +246,11 @@ def phase3( call:str ):
             print('この基準時刻で良いですか? ')
             yesno = input("[Y or N] >> ")
             if yesno == "Y":
-                okng =  True
+                JST_convert_flag = False
+                okng = False
             elif yesno == "N":
-                okng =  False
+                JST_convert_flag = True
+                okng = False
                 
     print("\n")            
     print('このログがUTCでロギングされている場合には、JSTに変換可能です。')        
@@ -257,13 +260,6 @@ def phase3( call:str ):
         okng = True
 
         while okng:
-#            print('ログ時刻UTCをJSTに変換しますか？')            
-#            yesno = input("[Y or N] >> ")
-#            if yesno == "Y":
-#                okng =  False
-#            elif yesno == "N":
-#                okng = True
-#                break
                 
             print('ログ時刻UTCをJSTに変換しますか？ [U:UTC or J:JST]？')
             UTC_JST = input('>> ').upper() 

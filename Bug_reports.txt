@@ -1,9 +1,12 @@
 Bug_no:001
 Date:2018/09/21 15:02
 Level:High
-Status:未着手
+Status:fixed
+Bug_fixed:18/09/21 16:34:23
 Bug_report:
 UTCの選択ができない
+
+
 
 Bug_no:002
 Date:2018/09/21 15:03
