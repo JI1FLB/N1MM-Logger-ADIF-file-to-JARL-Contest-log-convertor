@@ -7,10 +7,26 @@ Bug_report:
 UTCの選択ができない
 
 
-
 Bug_no:002
 Date:2018/09/21 15:03
 Level:High
-Status:未着手
+Status:fixed
+Bug_fixed:18/09/21 17:38:11
 Bug_report:
 ALL ASIA DX contest は、年齢をadifの<AGE>(ex. <AGE:2>63 )に相手の年齢を設定しているため、コンテストログが正しく生成されない。
+
+
+Bug_no:
+Date:
+Level:
+Status:
+Bug_fixed:
+Bug_report:
+
+Bug_no:
+Date:
+Level:
+Status:
+Bug_fixed:
+Bug_report:
+

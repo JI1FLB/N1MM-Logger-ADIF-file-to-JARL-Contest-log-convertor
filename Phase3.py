@@ -103,6 +103,8 @@ def phase3( call:str ):
     dtstr = ""
     t=set
 
+    AA_contest_flag=False
+
     #--------------------------------------------------------------------
 
 
@@ -133,7 +135,7 @@ def phase3( call:str ):
     a25 = "APP_N1MM_NETBIOSNAME:"
     a26 = "APP_N1MM_ISRUNQSO:"
     a27 = "EOR>"
-
+    a28 = "AGE"
 
     b1 = True
     b2 = True
@@ -162,7 +164,7 @@ def phase3( call:str ):
     b25 = True
     b26 = True
     b27 = True
-
+    b28 = True
 
 #----------------------------------------------------------------------------
     print("\n")
@@ -171,11 +173,44 @@ def phase3( call:str ):
 
     #------------------------------------------------------------------------
     #
+    #   コンテストの選択：ALL Asia DX contestと通常コンテストの選択
+    #
+    #
+
+
+
+    while okng :
+        print( "\n" )
+        print('ALL Asia DX contestですか? [Y or N]')
+        yesno = input("[Y or N] >> ")
+        if yesno == "Y" :
+            AA_contest_flag = True
+        elif yesno == "N":
+            AA_contest_flag = False
+
+        if AA_contest_flag == True :
+            print('コンテストはALL ASIA DX Contestです。')
+        elif AA_contest_flag == False :
+            print('コンテストは通常のContestです。')
+        print('このコンテストでよろしいですか? [Y or N]')        
+        yesno = input("[Y or N] >> ")
+        if yesno == "Y":
+            okng =  False
+        elif yesno == "N":
+            okng = True
+        else:
+            okng = True
+
+        print("\n")
+
+    #------------------------------------------------------------------------
+    #
     #   コンテストナンバー入力
     #
     #
 
-
+    okng = True
+    
     while okng :
         print("\n")
         print('コンテストナンバーを入力してください。')
@@ -252,20 +287,20 @@ def phase3( call:str ):
                 JST_convert_flag = True
                 okng = False
                 
-    print("\n")            
-    print('このログがUTCでロギングされている場合には、JSTに変換可能です。')        
+    print("\n")
+    print('このログがUTCでロギングされている場合には、JSTに変換可能です。')
 
     if JST_convert_flag  :
-    
+
         okng = True
 
         while okng:
-                
+
             print('ログ時刻UTCをJSTに変換しますか？ [U:UTC or J:JST]？')
             UTC_JST = input('>> ').upper() 
 
             if UTC_JST=="J" :
-                JST_convert_flag = True   
+                JST_convert_flag = True
             elif  UTC_JST=="U" :
                 JST_convert_flag = False
             print("\n")
@@ -275,7 +310,7 @@ def phase3( call:str ):
             if yesno == "Y":
                 okng =  False
             elif yesno == "N":
-                okng = True                        
+                okng = True
                 
         print("\n")
             
@@ -395,6 +430,9 @@ def phase3( call:str ):
 
         if "EOR>" not in log :
             EOR = " "
+
+        if "AGE" not in log :
+            AGE = " "
 
 
     #--------------------------------------------------
@@ -694,7 +732,14 @@ def phase3( call:str ):
                 APP_N1MM_ISRUNQSO = a[19+b2:20+b2+int(b1)]
                 APP_N1MM_ISRUNQSO = APP_N1MM_ISRUNQSO.rstrip()
 
-
+            if "AGE:" in i:
+                a = i
+                b = a[4:6]
+                b1= b.rstrip(">")
+                b2 = len(b1)
+                AGE = a[5+b2:6+b2+int(b1)]
+                AGE = AGE.rstrip()
+                
 
     #--------------------------------------
     #
@@ -723,7 +768,7 @@ def phase3( call:str ):
     #
 
             if "EOR>" in i:
-                text = CALL+","+QSO_DATE+","+TIME_ON+","+SECTION+","+BAND+","+STATION_CALLSIGN+","+FREQ+","+CONTEST_ID+","+FREQ_RX+","+MODE+","+RST_RCVD+","+RST_SENT+","+RST_SENT+","+CQZ+","+STX+","+APP_N1MM_EXCHANGE1+","+APP_N1MM_POINTS+","+APP_N1MM_RADIO_NR+","+APP_N1MM_CONTINENT+","+APP_N1MM_CONTACTTYPE+","+APP_N1MM_RUN1RUN2+","+APP_N1MM_RADIOINTERFACED+","+APP_N1MM_ISORIGINAL+","+APP_N1MM_NETBIOSNAME+","+APP_N1MM_ISRUNQSO  + "\n"
+                text = CALL+","+QSO_DATE+","+TIME_ON+","+SECTION+","+BAND+","+STATION_CALLSIGN+","+FREQ+","+CONTEST_ID+","+FREQ_RX+","+MODE+","+RST_RCVD+","+RST_SENT+","+RST_SENT+","+CQZ+","+STX+","+AGE+","+APP_N1MM_EXCHANGE1+","+APP_N1MM_POINTS+","+APP_N1MM_RADIO_NR+","+APP_N1MM_CONTINENT+","+APP_N1MM_CONTACTTYPE+","+APP_N1MM_RUN1RUN2+","+APP_N1MM_RADIOINTERFACED+","+APP_N1MM_ISORIGINAL+","+APP_N1MM_NETBIOSNAME+","+APP_N1MM_ISRUNQSO  + "\n"
                 text_log.write( text )
 
     #   周波数がリアルで小数点以下3桁
@@ -733,8 +778,21 @@ def phase3( call:str ):
     #            line = QSO_DATE_JARL+" "+TIME_ON_JARL+" "+FREQ_JARL+" "+MODE+" "+CALL+" "+RST_SENT+" "+My_multi+" "+RST_RCVD+" "+APP_N1MM_EXCHANGE1+" "+APP_N1MM_EXCHANGE1+" "+APP_N1MM_POINTS+"\n"
 
     #   例3の出力
-                line = QSO_DATE_JARL+" "+TIME_ON_JARL+" "+FREQ_JARL+" "+MODE+" "+CALL+" "+RST_SENT+" "+My_multi+" "+RST_RCVD+" "+APP_N1MM_EXCHANGE1+"\n"
-                log_sheet.write( line )
+    #            line = QSO_DATE_JARL+" "+TIME_ON_JARL+" "+FREQ_JARL+" "+MODE+" "+CALL+" "+RST_SENT+" "+My_multi+" "+RST_RCVD+" "+APP_N1MM_EXCHANGE1+"\n"
+    #            log_sheet.write( line )
+
+
+    #   例4の出力　ALL Asia DX contest対応
+    
+                if AA_contest_flag == True:
+
+                    line = QSO_DATE_JARL+" "+TIME_ON_JARL+" "+FREQ_JARL+" "+MODE+" "+CALL+" "+RST_SENT+" "+My_multi+" "+RST_RCVD+" "+ AGE +"\n"
+                    log_sheet.write( line )
+                    
+                else :
+                    line = QSO_DATE_JARL+" "+TIME_ON_JARL+" "+FREQ_JARL+" "+MODE+" "+CALL+" "+RST_SENT+" "+My_multi+" "+RST_RCVD+" "+APP_N1MM_EXCHANGE1+"\n"
+                    log_sheet.write( line )
+
 
     #--------------------------------------
     #
