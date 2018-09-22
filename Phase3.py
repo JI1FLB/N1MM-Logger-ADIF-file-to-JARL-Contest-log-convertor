@@ -136,6 +136,7 @@ def phase3( call:str ):
     a26 = "APP_N1MM_ISRUNQSO:"
     a27 = "EOR>"
     a28 = "AGE"
+    a29 = "COMMENT"
 
     b1 = True
     b2 = True
@@ -165,7 +166,7 @@ def phase3( call:str ):
     b26 = True
     b27 = True
     b28 = True
-
+    b29 = True
 #----------------------------------------------------------------------------
     print("\n")
     print("*** ログシートの必要事項入力")
@@ -433,7 +434,9 @@ def phase3( call:str ):
 
         if "AGE" not in log :
             AGE = " "
-
+            
+        if "COMMENT" not in log :
+            COMMENT = " "
 
     #--------------------------------------------------
     #
@@ -579,6 +582,14 @@ def phase3( call:str ):
                 elif 10000.0< FREQ_f and FREQ_f < 10500.0 :
                     FREQ_JARL = "10.1G"
 
+            if "COMMENT:" in i:
+                a = i
+                b = a[8:10]
+                b1= b.rstrip(">")
+                b2 = len(b1)
+                COMMENT = a[9+b2:10+b2+int(b1)]
+                COMMENT = COMMENT.rstrip()
+                COMMENT = COMMENT.upper()
                     
             if "CONTEST_ID:" in i:
                 a = i
@@ -768,7 +779,7 @@ def phase3( call:str ):
     #
 
             if "EOR>" in i:
-                text = CALL+","+QSO_DATE+","+TIME_ON+","+SECTION+","+BAND+","+STATION_CALLSIGN+","+FREQ+","+CONTEST_ID+","+FREQ_RX+","+MODE+","+RST_RCVD+","+RST_SENT+","+RST_SENT+","+CQZ+","+STX+","+AGE+","+APP_N1MM_EXCHANGE1+","+APP_N1MM_POINTS+","+APP_N1MM_RADIO_NR+","+APP_N1MM_CONTINENT+","+APP_N1MM_CONTACTTYPE+","+APP_N1MM_RUN1RUN2+","+APP_N1MM_RADIOINTERFACED+","+APP_N1MM_ISORIGINAL+","+APP_N1MM_NETBIOSNAME+","+APP_N1MM_ISRUNQSO  + "\n"
+                text = CALL+","+QSO_DATE+","+TIME_ON+","+SECTION+","+BAND+","+STATION_CALLSIGN+","+FREQ+","+COMMENT+","+CONTEST_ID+","+FREQ_RX+","+MODE+","+RST_RCVD+","+RST_SENT+","+RST_SENT+","+CQZ+","+STX+","+AGE+","+APP_N1MM_EXCHANGE1+","+APP_N1MM_POINTS+","+APP_N1MM_RADIO_NR+","+APP_N1MM_CONTINENT+","+APP_N1MM_CONTACTTYPE+","+APP_N1MM_RUN1RUN2+","+APP_N1MM_RADIOINTERFACED+","+APP_N1MM_ISORIGINAL+","+APP_N1MM_NETBIOSNAME+","+APP_N1MM_ISRUNQSO  + "\n"
                 text_log.write( text )
 
     #   周波数がリアルで小数点以下3桁
@@ -789,6 +800,10 @@ def phase3( call:str ):
                     line = QSO_DATE_JARL+" "+TIME_ON_JARL+" "+FREQ_JARL+" "+MODE+" "+CALL+" "+RST_SENT+" "+My_multi+" "+RST_RCVD+" "+ AGE +"\n"
                     log_sheet.write( line )
                     
+                elif CONTEST_ID == "Furusato" :
+                    line = QSO_DATE_JARL+" "+TIME_ON_JARL+" "+FREQ_JARL+" "+MODE+" "+CALL+" "+RST_SENT+" "+My_multi+" "+RST_RCVD+" "+COMMENT+"\n"
+                    log_sheet.write( line )                    
+
                 else :
                     line = QSO_DATE_JARL+" "+TIME_ON_JARL+" "+FREQ_JARL+" "+MODE+" "+CALL+" "+RST_SENT+" "+My_multi+" "+RST_RCVD+" "+APP_N1MM_EXCHANGE1+"\n"
                     log_sheet.write( line )

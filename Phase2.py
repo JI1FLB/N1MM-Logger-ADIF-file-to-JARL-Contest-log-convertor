@@ -143,27 +143,10 @@ def phase2( call:str, coe:int ):
 
     l=""
     TOTALSCORE = ""
-    Power_code = True
 
     #--------------------------------------
 
     logs = output_log.readlines()
-
-
-    okng = True
-    while okng :
-        print('マルチはパワーコードを利用していますか？')
-        yesno = input("[Y or N] >> ")
-        if yesno == "Y":
-            Power_code = True          
-            okng = False
-
-        elif yesno == "N":
-            Power_code = False              
-            okng = False
-                        
-        else:
-            okng = True
 
 
     for log in logs:
@@ -218,23 +201,15 @@ def phase2( call:str, coe:int ):
                 FREQ = a[6+b2:7+b2+int(b1)]
                 FREQ = FREQ.rstrip()
                 
-            elif "APP_N1MM_EXCHANGE1:" in i:
+            elif "COMMENT:" in i:
                 a = i
-                b = a[19:21]
+                b = a[8:10]
                 b1= b.rstrip(">")
                 b2 = len(b1)
-                APP_N1MM_EXCHANGE1 = a[20+b2:21+b2+int(b1)]
-                APP_N1MM_EXCHANGE1 = APP_N1MM_EXCHANGE1.rstrip()
-                c = APP_N1MM_EXCHANGE1
-#                print( c +'\n')
+                COMMENT = a[9+b2:10+b2+int(b1)]
+                COMMENT = COMMENT.rstrip()
+                c = COMMENT.upper()
                 
-                if Power_code :
-                        c = c.rstrip("L")
-                        c = c.rstrip("M")
-                        c = c.rstrip("H")
-                        c = c.rstrip("P")
-#                print( c +'\n')
-                        
                 if "160M" == BAND : 
                     M_160M.add( c )
                 elif "80M" == BAND : 
@@ -262,6 +237,45 @@ def phase2( call:str, coe:int ):
                 elif "3CM" == BAND : 
                     M_3CM.add( c )
 
+            elif "APP_N1MM_EXCHANGE1:" in i:
+                a = i
+                b = a[19:21]
+                b1= b.rstrip(">")
+                b2 = len(b1)
+                APP_N1MM_EXCHANGE1 = a[20+b2:21+b2+int(b1)]
+                APP_N1MM_EXCHANGE1 = APP_N1MM_EXCHANGE1.rstrip()
+                c = APP_N1MM_EXCHANGE1
+                c = c.rstrip("P")
+                c = c.rstrip("L")
+                c = c.rstrip("M")
+                c = c.rstrip("H")
+                
+                if "160M" == BAND : 
+                    M_160M.add( c )
+                elif "80M" == BAND : 
+                    M_80M.add( c )
+                elif "40M" == BAND : 
+                    M_40M.add( c )
+                elif "20M" == BAND : 
+                    M_20M.add( c )
+                elif "15M" == BAND : 
+                    M_15M.add( c )
+                elif "10M" == BAND : 
+                    M_10M.add( c )
+                elif "6M" == BAND : 
+                    M_6M.add( c )
+                elif "2M" == BAND : 
+                    M_2M.add( c )
+                elif "70CM" == BAND : 
+                    M_70CM.add( c )
+                elif "23CM" == BAND : 
+                    M_23CM.add( c )
+                elif "13CM" == BAND : 
+                    M_13CM.add( c )
+                elif "6CM" == BAND : 
+                    M_6CM.add( c )
+                elif "3CM" == BAND : 
+                    M_3CM.add( c )
 
             elif "APP_N1MM_POINTS:" in i:
                 a = i
@@ -498,7 +512,6 @@ def phase2( call:str, coe:int ):
     score_log.write( "\n")
 
     score_log.write( "\n")
-    
     score_log.write( "40M Band"+"\n")
     for l in sorted( M_40M ) :
         score_log.write( l+" " )
@@ -563,7 +576,9 @@ def phase2( call:str, coe:int ):
     for l in sorted( M_3CM ) :
         score_log.write( l+" " )
     score_log.write( "\n")
-    
+
+
+
     #------------------------------
     #
     # JARLサマリーシートへ得点を転記
