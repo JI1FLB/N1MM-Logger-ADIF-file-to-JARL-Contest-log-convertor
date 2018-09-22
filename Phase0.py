@@ -83,8 +83,6 @@ def phase0():
 
         elif yesno == "N":
             FD_flag ="N"
-            FD_coe = 1
-            Ph0.append(str(FD_coe))
             okng = False
             
         else:
@@ -180,9 +178,9 @@ def phase0():
             summary.write( "<FDCOEFF>" + fill[1] + "</FDCOEFF>"  + "\n")
             FD_coe = fill[1]
             Ph0.append(str(FD_coe))
-#        elif "フィールドデーコンテストの場合の局種係数" == fill[0] and FD_flag == "N" :
-#            FD_coe = "1"
-#            Ph0.append(str(FD_coe))            
+        elif  FD_flag == "N" :
+            FD_coe = "1"
+            Ph0.append(str(FD_coe))            
 
         if "運用地" == fill[0] and FD_flag == "Y"  :
             summary.write( "<OPPLACE>" + fill[1] + "</OPPLACE>"  + "\n")
