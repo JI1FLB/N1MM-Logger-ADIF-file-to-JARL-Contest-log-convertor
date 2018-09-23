@@ -3,6 +3,7 @@
 #  ふるさとコンテストのニューマルチのマーキング ツール
 #
 #   作成年月日：2018/09/23
+#   バージョン：v0r2
 #   作成者：　田中盛一　JI1FLB
 #
 #   動作概要
@@ -25,9 +26,6 @@
 
 import os
 import shutil
- 
-
-temp_file = open('temp.txt', 'r', encoding='utf-8')
 
 fill_in_form = open( "form.txt" ,"r", encoding='utf-8')
 
@@ -99,5 +97,5 @@ print("*** マルチリスト　  凡例）バンド＋マルチ名" )
 print( Multi )
 
 logs.close()
-temp_file.close()
 new_file.close()
+fill_in_form.close()
