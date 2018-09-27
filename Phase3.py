@@ -1,4 +1,4 @@
-def phase3( call:str ):
+def phase3( call:str , Contest_name:str ):
 
     import os
     from datetime import datetime
@@ -785,27 +785,32 @@ def phase3( call:str ):
     #   周波数がリアルで小数点以下3桁
     #            line = QSO_DATE_JARL+" "+TIME_ON_JARL+" "+str('{:.3f}'.format(float(FREQ)))+" "+MODE+" "+CALL+" "+RST_SENT+" "+My_multi+" "+RST_RCVD+" "+APP_N1MM_EXCHANGE1+" "+APP_N1MM_EXCHANGE1+" "+APP_N1MM_POINTS+"\n"
 
-    #   例2の出力
-    #            line = QSO_DATE_JARL+" "+TIME_ON_JARL+" "+FREQ_JARL+" "+MODE+" "+CALL+" "+RST_SENT+" "+My_multi+" "+RST_RCVD+" "+APP_N1MM_EXCHANGE1+" "+APP_N1MM_EXCHANGE1+" "+APP_N1MM_POINTS+"\n"
 
-    #   例3の出力
-    #            line = QSO_DATE_JARL+" "+TIME_ON_JARL+" "+FREQ_JARL+" "+MODE+" "+CALL+" "+RST_SENT+" "+My_multi+" "+RST_RCVD+" "+APP_N1MM_EXCHANGE1+"\n"
-    #            log_sheet.write( line )
-
-
-    #   例4の出力　ALL Asia DX contest対応
+    #   ファイル出力　ALL Asia DX contest対応
     
                 if AA_contest_flag == True:
 
                     line = QSO_DATE_JARL+" "+TIME_ON_JARL+" "+FREQ_JARL+" "+MODE+" "+CALL+" "+RST_SENT+" "+My_multi+" "+RST_RCVD+" "+ AGE +"\n"
                     log_sheet.write( line )
                     
-                elif CONTEST_ID == "Furusato" :
-                    line = QSO_DATE_JARL+" "+TIME_ON_JARL+" "+FREQ_JARL+" "+MODE+" "+CALL+" "+RST_SENT+" "+My_multi+" "+RST_RCVD+" "+COMMENT+"\n"
+                elif "JADOMESTIC" == Contest_name :
+                    line = QSO_DATE_JARL+" "+TIME_ON_JARL+" "+FREQ_JARL+" "+MODE+" "+CALL+" "+RST_SENT+" "+My_multi+" "+RST_RCVD+" "+ APP_N1MM_EXCHANGE1 +"\n"
+                    log_sheet.write( line )
+                    
+                elif "FURUSATO" == Contest_name :
+                    line = QSO_DATE_JARL+" "+TIME_ON_JARL+" "+FREQ_JARL+" "+MODE+" "+CALL+" "+RST_SENT+" "+My_multi+" "+RST_RCVD+" "+ COMMENT +"\n"
+                    log_sheet.write( line )                    
+
+                elif "SCCRTTY" == Contest_name :
+                    line = QSO_DATE_JARL+" "+TIME_ON_JARL+" "+FREQ_JARL+" "+MODE+" "+CALL+" "+RST_SENT+" "+My_multi+" "+RST_RCVD+" "+ COMMENT +"\n"
+                    log_sheet.write( line )                    
+
+                elif "KCJ-JA" == Contest_name :
+                    line = QSO_DATE_JARL+" "+TIME_ON_JARL+" "+FREQ_JARL+" "+MODE+" "+CALL+" "+RST_SENT+" "+My_multi+" "+RST_RCVD+" "+ SECTION +"\n"
                     log_sheet.write( line )                    
 
                 else :
-                    line = QSO_DATE_JARL+" "+TIME_ON_JARL+" "+FREQ_JARL+" "+MODE+" "+CALL+" "+RST_SENT+" "+My_multi+" "+RST_RCVD+" "+APP_N1MM_EXCHANGE1+"\n"
+                    line = QSO_DATE_JARL+" "+TIME_ON_JARL+" "+FREQ_JARL+" "+MODE+" "+CALL+" "+RST_SENT+" "+My_multi+" "+RST_RCVD+" "+ APP_N1MM_EXCHANGE1+"\n"
                     log_sheet.write( line )
 
 

@@ -1,5 +1,4 @@
-def phase2( call:str, coe:int ):
-
+def phase2( call:str, coe:int,Contest_name:str ):
 
     import os
     import datetime
@@ -12,13 +11,13 @@ def phase2( call:str, coe:int ):
     okng = True
 
 
+
     #------------------------------------------------------------------------
     #
     #   ファイルネーム（コールサイン）の入力
     #
     #
 
-            
 
     Callsign = call
     FD_coe =coe
@@ -72,6 +71,7 @@ def phase2( call:str, coe:int ):
     today = datetime.date.today()
     todaydetail = datetime.datetime.today()
 
+
     #------------------------------------------
     #
     #   変数宣言
@@ -123,7 +123,6 @@ def phase2( call:str, coe:int ):
     Multi_3CM = 0
 
 
-
     Total = 0
 
     M_160M = set()
@@ -140,23 +139,58 @@ def phase2( call:str, coe:int ):
     M_6CM = set()
     M_3CM = set()
 
-
     l=""
     TOTALSCORE = ""
 
+
+    log = ""
+
+    a = ""
+    b = ""
+    c = ""
+
+    BAND = ""
+#    Contest_name = ""
+
+    cnt = 0
+    FD_coe = 1
+
+    EXCHANGE1 = ""
+    COMMENT = ""
+    SECTION = ""
+
     #--------------------------------------
+    #
+    #   コンテスト名取得
+    #
+    #
+
+    Contest_name = Contest_name.rstrip()
+    Contest_name = Contest_name.lstrip()
+
+
+    #--------------------------------------
+    #
+    #  スコア集計
+    #
+    #
 
     logs = output_log.readlines()
-
-
+    
     for log in logs:
+            
         log = log.replace(' "','')
         log = log.rstrip('\n')
+        log = log.rstrip()
         log = log.lstrip()
         log = log.split("<")
 
-        for i in log:
+    #--------------------------------------
+    #　　バンド、QSO数　
+    #
 
+
+        for i in log:
             if "BAND:" in i:
                 a = i
                 b = a[5:7]
@@ -164,6 +198,7 @@ def phase2( call:str, coe:int ):
                 b2 = len(b1)
                 BAND = a[6+b2:7+b2+int(b1)]
                 BAND = BAND.rstrip()
+#                print( BAND )
 
                 if "160M" == BAND : 
                    QSO_160M = QSO_160M +1
@@ -191,93 +226,55 @@ def phase2( call:str, coe:int ):
                    QSO_6CM = QSO_6CM +1
                 elif "3CM" == BAND : 
                    QSO_3CM = QSO_3CM +1
-                  
-                   
-            elif "FREQ:" in i:
-                a = i
-                b = a[5:7]
-                b1= b.rstrip(">")
-                b2 = len(b1)
-                FREQ = a[6+b2:7+b2+int(b1)]
-                FREQ = FREQ.rstrip()
-                
-            elif "COMMENT:" in i:
-                a = i
-                b = a[8:10]
-                b1= b.rstrip(">")
-                b2 = len(b1)
-                COMMENT = a[9+b2:10+b2+int(b1)]
-                COMMENT = COMMENT.rstrip()
-                c = COMMENT.upper()
-                
-                if "160M" == BAND : 
-                    M_160M.add( c )
-                elif "80M" == BAND : 
-                    M_80M.add( c )
-                elif "40M" == BAND : 
-                    M_40M.add( c )
-                elif "20M" == BAND : 
-                    M_20M.add( c )
-                elif "15M" == BAND : 
-                    M_15M.add( c )
-                elif "10M" == BAND : 
-                    M_10M.add( c )
-                elif "6M" == BAND : 
-                    M_6M.add( c )
-                elif "2M" == BAND : 
-                    M_2M.add( c )
-                elif "70CM" == BAND : 
-                    M_70CM.add( c )
-                elif "23CM" == BAND : 
-                    M_23CM.add( c )
-                elif "13CM" == BAND : 
-                    M_13CM.add( c )
-                elif "6CM" == BAND : 
-                    M_6CM.add( c )
-                elif "3CM" == BAND : 
-                    M_3CM.add( c )
 
-            elif "APP_N1MM_EXCHANGE1:" in i:
+
+    #--------------------------------------
+    #　　マルチ収集、ポイント数　収集　
+    #
+
+
+        for i in log:    
+            if "APP_N1MM_EXCHANGE1:" in i:
                 a = i
                 b = a[19:21]
                 b1= b.rstrip(">")
                 b2 = len(b1)
                 APP_N1MM_EXCHANGE1 = a[20+b2:21+b2+int(b1)]
                 APP_N1MM_EXCHANGE1 = APP_N1MM_EXCHANGE1.rstrip()
-                c = APP_N1MM_EXCHANGE1
-                c = c.rstrip("P")
-                c = c.rstrip("L")
-                c = c.rstrip("M")
-                c = c.rstrip("H")
-                
-                if "160M" == BAND : 
-                    M_160M.add( c )
-                elif "80M" == BAND : 
-                    M_80M.add( c )
-                elif "40M" == BAND : 
-                    M_40M.add( c )
-                elif "20M" == BAND : 
-                    M_20M.add( c )
-                elif "15M" == BAND : 
-                    M_15M.add( c )
-                elif "10M" == BAND : 
-                    M_10M.add( c )
-                elif "6M" == BAND : 
-                    M_6M.add( c )
-                elif "2M" == BAND : 
-                    M_2M.add( c )
-                elif "70CM" == BAND : 
-                    M_70CM.add( c )
-                elif "23CM" == BAND : 
-                    M_23CM.add( c )
-                elif "13CM" == BAND : 
-                    M_13CM.add( c )
-                elif "6CM" == BAND : 
-                    M_6CM.add( c )
-                elif "3CM" == BAND : 
-                    M_3CM.add( c )
+                EXCHANGE1 = APP_N1MM_EXCHANGE1
 
-            elif "APP_N1MM_POINTS:" in i:
+                if "JADOMESTIC"  == Contest_name :
+                    EXCHANGE1 = EXCHANGE1.rstrip("P")
+                    EXCHANGE1 = EXCHANGE1.rstrip("L")
+                    EXCHANGE1 = EXCHANGE1.rstrip("M")
+                    EXCHANGE1 = EXCHANGE1.rstrip("H")
+
+                if "NTT" == Contest_name :
+                    EXCHANGE1 = EXCHANGE1.rstrip("N")
+                    
+#                print( 'EXCHANGE1-> '+ EXCHANGE1 )
+
+            if "COMMENT:" in i:
+                a = i
+                b = a[8:10]
+                b1= b.rstrip(">")
+                b2 = len(b1)
+                COMMENT = a[9+b2:10+b2+int(b1)]
+                COMMENT = COMMENT.rstrip()
+                COMMENT = COMMENT.upper()
+#                print ( 'COMMENT-> ' + COMMENT )
+
+            if 'SECTION:' in i :
+                a = i
+                b = a[8:10]
+                b1= b.rstrip(">")
+                b2 = len(b1)
+                SECTION = a[9+b2:10+b2+int(b1)]
+                SECTION = SECTION.rstrip()
+                SECTION = SECTION.upper()
+#                print ( 'SECTION-> ' + SECTION )
+
+            if "APP_N1MM_POINTS:" in i:
                 a = i
                 b = a[16:18]
                 b1= b.rstrip(">")
@@ -310,132 +307,151 @@ def phase2( call:str, coe:int ):
                 elif "6CM" == BAND : 
                     point_6CM = point_6CM + int( APP_N1MM_POINTS )            
                 elif "3CM" == BAND : 
-                    point_3CM = point_3CM + int( APP_N1MM_POINTS )     
+                    point_3CM = point_3CM + int( APP_N1MM_POINTS )
+
                     
-                    
-                    
-    #        if "EOR>" in i:
+    #----------------------------------------------------------------
+    #   マルチ仕分け　集計
+ 
+
+        if 'JADOMESTIC' == Contest_name :
+            c = SECTION
+        elif 'FURUSATO' == Contest_name :
+            c = COMMENT
+        elif 'SCCRTTY' == Contest_name : 
+            c = COMMENT
+        elif 'KCJ-JA' == Contest_name : 
+            c = SECTION
+#            c = EXCHANGE1 
+        else :
+            c = EXCHANGE1        
+
+            
+        if "160M" == BAND : 
+            M_160M.add( c )
+        elif "80M" == BAND : 
+            M_80M.add( c )
+        elif "40M" == BAND : 
+            M_40M.add( c )
+        elif "20M" == BAND : 
+            M_20M.add( c )
+        elif "15M" == BAND : 
+            M_15M.add( c )
+        elif "10M" == BAND : 
+            M_10M.add( c )
+        elif "6M" == BAND : 
+            M_6M.add( c )
+        elif "2M" == BAND : 
+            M_2M.add( c )
+        elif "70CM" == BAND : 
+            M_70CM.add( c )
+        elif "23CM" == BAND : 
+            M_23CM.add( c )
+        elif "13CM" == BAND : 
+            M_13CM.add( c )
+        elif "6CM" == BAND : 
+            M_6CM.add( c )
+        elif "3CM" == BAND : 
+            M_3CM.add( c )
 
     #------------------------------------------
     #
-    #   QSO数集計
+    #   QSO数　集計
     #
 
-
-
-
-#    print("QSO数集計")
-
-#    print(" 160M -> ", QSO_160M )
-#    print("  80M -> ", QSO_80M )
-#    print("  40M -> ", QSO_40M )
-#    print("  20M -> ", QSO_20M )
-#    print("  15M -> ", QSO_15M )
-#    print("  10M -> ", QSO_10M )
-#    print("   6M -> ", QSO_6M )
-#    print("   2M -> ", QSO_2M )
-#    print(" 70CM -> ", QSO_70CM )
-#    print(" 23CM -> ", QSO_23CM )
-#    print(" 13CM -> ", QSO_13CM )
-#    print(" 6CM -> ", QSO_6CM )
-#    print(" 3CM -> ", QSO_3CM )
-#    print( "\n" )
-
-
     QSO = QSO_160M +  QSO_80M + QSO_40M + QSO_20M + QSO_15M + QSO_10M + QSO_6M + QSO_2M + QSO_70CM + QSO_23CM + QSO_13CM + QSO_6CM + QSO_3CM
-                
+
+            
     #------------------------------------------
     #
     #   ポイント集計
     #
 
-
-#    print("ポイント集計")
-
-#    print(" 160M -> ", point_160M )
-#    print("  80M -> ", point_80M )
-#    print("  40M -> ", point_40M )
-#    print("  20M -> ", point_20M )
-#    print("  15M -> ", point_15M )
-#    print("  10M -> ", point_10M )
-#    print("   6M -> ", point_6M )
-#    print("   2M -> ", point_2M )
-#    print(" 70CM -> ", point_70CM )
-#    print(" 23CM -> ", point_23CM )
-#    print(" 13CM -> ", point_13CM )
-#    print(" 6CM -> ", point_6CM )
-#    print(" 3CM -> ", point_3CM )
-#    print( "\n" )
-
-
     point = point_160M + point_80M + point_40M + point_20M + point_15M + point_10M + point_6M + point_2M + point_70CM + point_23CM+point_13CM+point_6CM+point_3CM
+
 
     #------------------------------------------
     #
     #   マルチ集計
     #
 
-    for l in M_160M :
-        Multi_160M = Multi_160M +1
+#    for l in M_160M :
+#        Multi_160M = Multi_160M +1
+#
+#    for l in M_80M :
+#        Multi_80M = Multi_80M +1
+#
+#    for l in M_40M :
+#        Multi_40M = Multi_40M +1
+#
+#    for l in M_20M :
+#        Multi_20M = Multi_20M +1
+#
+#    for l in M_15M :
+#        Multi_15M = Multi_15M +1
+#
+#    for l in M_10M :
+#        Multi_10M = Multi_10M +1
+#
+#    for l in M_6M :
+#        Multi_6M = Multi_6M +1
+#
+#    for l in M_2M :
+#        Multi_2M = Multi_2M +1
+#
+#    for l in M_70CM :
+#        Multi_70CM = Multi_70CM +1
+#
+#    for l in M_23CM :
+#        Multi_23CM = Multi_23CM +1
+#
+#    for l in M_13CM :
+#        Multi_13CM = Multi_13CM +1
+#
+#    for l in M_6CM :
+#        Multi_6CM = Multi_6CM +1
+#
+#    for l in M_3CM :
+#        Multi_3CM = Multi_3CM +1
 
-    for l in M_80M :
-        Multi_80M = Multi_80M +1
 
-    for l in M_40M :
-        Multi_40M = Multi_40M +1
+    Multi_160M =len( M_160M )
 
-    for l in M_20M :
-        Multi_20M = Multi_20M +1
+    Multi_80M = len ( M_80M )
 
-    for l in M_15M :
-        Multi_15M = Multi_15M +1
+    Multi_40M = len( M_40M )
 
-    for l in M_10M :
-        Multi_10M = Multi_10M +1
+    Multi_20M = len( M_20M )
 
-    for l in M_6M :
-        Multi_6M = Multi_6M +1
+    Multi_15M = len( M_15M )
 
-    for l in M_2M :
-        Multi_2M = Multi_2M +1
+    Multi_10M = len( M_10M )
 
-    for l in M_70CM :
-        Multi_70CM = Multi_70CM +1
+    Multi_6M = len( M_6M )
 
-    for l in M_23CM :
-        Multi_23CM = Multi_23CM +1
+    Multi_2M = len( M_2M )
 
-    for l in M_13CM :
-        Multi_13CM = Multi_13CM +1
+    Multi_70CM = len( M_70CM )
 
-    for l in M_6CM :
-        Multi_6CM = Multi_6CM +1
+    Multi_23CM = len( M_23CM )
 
-    for l in M_3CM :
-        Multi_3CM = Multi_3CM +1
+    Multi_13CM = len( M_13CM )
+
+    Multi_6CM = len( M_6CM )
+
+    Multi_3CM = len( M_3CM )
 
 
-#    print("マルチ集計")
-
-#    print( "160M --> ", Multi_160M )
-#    print( " 80M --> " , Multi_80M )
-#    print( " 40M --> " , Multi_40M )
-#    print( " 20M --> " ,Multi_20M )
-#    print( " 15M --> " ,Multi_15M )
-#    print( " 10M --> " ,Multi_10M )
-#    print( "  6M --> " ,Multi_6M )
-#    print( "  2M --> " ,Multi_2M )
-#    print( " 70CM --> " ,Multi_70CM )
-#    print( " 23CM --> " ,Multi_23CM )
-#    print( " 13CM --> " ,Multi_13CM )
-#    print( " 6CM --> " ,Multi_6CM )
-#    print( " 3CM --> " ,Multi_3CM )
-#    print( "\n" )
-    
-
+    #************************************************
+    #
+    #    print("マルチ集計")
+    #
+    #
 
 
     Multi = Multi_160M + Multi_80M + Multi_40M + Multi_20M + Multi_15M + Multi_10M  +Multi_6M + Multi_2M + Multi_70CM +Multi_23CM+Multi_13CM+Multi_6CM+Multi_3CM
+                      
+
 
     print("     コンテストスコアシート")
     print("           作成年月日:" +str(todaydetail.strftime("%Y/%m/%d %H:%M:%S")) + "\n" )
@@ -466,13 +482,16 @@ def phase2( call:str, coe:int ):
     TOTALSCORE = str( Total )
 
 
-    #----------------------------------------------------
-    #
-    #   スコアファイルの作成
-    #
-    #
-    score_log.write("      コンテストスコアシート         作成年月日:" +str(todaydetail.strftime("%Y/%m/%d %H:%M:%S")) + "\n" )
-    score_log.write("---------------------------------------------" + " " + "\n" )
+
+
+#----------------------------------------------------
+#
+#   スコアファイルの作成
+#
+#
+    score_log.write("                               作成年月日:" +str(todaydetail.strftime("%Y/%m/%d %H:%M:%S")) + "\n" )
+    score_log.write("      コンテストスコアシート                   :"  + "\n" )
+    score_log.write("---------------------------------------------------" + " " + "\n" )
     score_log.write(" BAND  QSOs  points  Multi  Coefficent"+ "\n" )
     score_log.write(" 160M -> "+ " " +  str( QSO_160M) + " " +  str( point_160M) + " " +  str( Multi_160M ) + " " + "\n" )
     score_log.write("  80M -> "+ " " +  str( QSO_80M) + " " +  str( point_80M)   + " " +  str( Multi_80M ) + " " + "\n")
@@ -487,7 +506,7 @@ def phase2( call:str, coe:int ):
     score_log.write(" 13CM -> "+ " " +  str( QSO_13CM) + " " +  str( point_13CM) + " " +  str( Multi_13CM ) + " " + "\n")
     score_log.write("  6CM -> "+ " " +  str( QSO_6CM) + " " +  str( point_6CM) + " " +  str( Multi_6CM )+ " " + "\n")
     score_log.write("  3CM -> "+ " " +  str( QSO_3CM) + " " +  str( point_3CM) + " " +  str( Multi_3CM )+ " " + "\n")
-    score_log.write("---------------------------------------------"+ "\n" )
+    score_log.write("---------------------------------------------------"+ "\n" )
 
 
     score_log.write( "QSO   --> "+ " " + str( QSO )  + " " +  str( point ) + " " +  str( Multi ) + " " +  str( FD_coe ) + " " + "\n"  )
@@ -579,11 +598,11 @@ def phase2( call:str, coe:int ):
 
 
 
-    #------------------------------
-    #
-    # JARLサマリーシートへ得点を転記
-    #
-    #
+#------------------------------
+#
+# JARLサマリーシートへ得点を転記
+#
+#
 
     summary = open( summary_file , "r" , encoding='utf-8')
     summary2 = open( summary2_file ,"w", encoding='utf-8')
@@ -595,7 +614,6 @@ def phase2( call:str, coe:int ):
             summary2.write( "<TOTALSCORE>" + TOTALSCORE +"</TOTALSCORE>"+"\n" )
         else:
             summary2.write( l )
-#    summary2.write( "\n" )
             
     summary2.close()
     summary.close()

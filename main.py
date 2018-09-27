@@ -1,12 +1,15 @@
 #import subprocess as sb
 from Phase0 import phase0
+from Phase0_1 import phase0_1
 from Phase1 import phase1
 from Phase2 import phase2
 from Phase3 import phase3
 
 
 #--------------------
+
 Callsign = ""
+Contest_name = ""
 FD_coe = 1
 okng = True
 Ph0_data = []
@@ -49,18 +52,16 @@ print("+------------------------------------------------------------------------
 
 #     Phase0を起動
 #           サマリー作成、コールサイン取得、フィールドデーコンテスト係数取得
+
 Ph0_data = phase0()
 
-#print(Ph0_data)
-
-
 Callsign = Ph0_data[0]
-#print(Ph0_data[0])
 
 FD_coe = int(Ph0_data[1])
-#print(Ph0_data[1])
 
+Contest_name = phase0_1( Callsign )
 
+print( 'Contest name ->'  + Contest_name )
 print("*** Completed the phase0 process"+"\n")
 
 
@@ -68,22 +69,22 @@ print("*** Completed the phase0 process"+"\n")
 #       ADIFファイルのログライン分割を1ラインに修正
 
 phase1( Callsign )
+
 print("*** Completed the phase1 process"+"\n")
 
 
 #  Phase2を起動
 #     スコアサマリーの生成、JARLサマリーシートへ得点を転記
 
-phase2( Callsign,FD_coe )
+phase2( Callsign , FD_coe , Contest_name  )
+
 print("*** Completed the phase2 process"+"\n")
 
 
 #Phase3を起動
 
-phase3(Callsign)
+phase3( Callsign , Contest_name )
+
 print("*** Completed the phase3 process"+"\n")
 
-#Phase3を起動
 
-#phase33(Callsign)
-#print("*** Completed the phase33 process"+"\n")
