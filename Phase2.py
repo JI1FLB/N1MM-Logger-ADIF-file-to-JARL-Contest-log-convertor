@@ -251,7 +251,10 @@ def phase2( call:str, coe:int,Contest_name:str ):
 
                 if "NTT" == Contest_name :
                     EXCHANGE1 = EXCHANGE1.rstrip("N")
-                    
+                
+                if "BIRTHDAY" == Contest_name :
+                    EXCHANGE1 = EXCHANGE1.rstrip("N")
+                    EXCHANGE1 = EXCHANGE1[ 2:4 ]
 #                print( 'EXCHANGE1-> '+ EXCHANGE1 )
 
             if "COMMENT:" in i:
@@ -489,8 +492,8 @@ def phase2( call:str, coe:int,Contest_name:str ):
 #   スコアファイルの作成
 #
 #
-    score_log.write("                               作成年月日:" +str(todaydetail.strftime("%Y/%m/%d %H:%M:%S")) + "\n" )
-    score_log.write("      コンテストスコアシート                   :"  + "\n" )
+    score_log.write("                             作成年月日:" +str(todaydetail.strftime("%Y/%m/%d %H:%M:%S")) + "\n" )
+    score_log.write("      コンテストスコアシート           "  + "\n" )
     score_log.write("---------------------------------------------------" + " " + "\n" )
     score_log.write(" BAND  QSOs  points  Multi  Coefficent"+ "\n" )
     score_log.write(" 160M -> "+ " " +  str( QSO_160M) + " " +  str( point_160M) + " " +  str( Multi_160M ) + " " + "\n" )
