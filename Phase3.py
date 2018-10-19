@@ -137,6 +137,7 @@ def phase3( call:str , Contest_name:str ):
     a27 = "EOR>"
     a28 = "AGE"
     a29 = "COMMENT"
+    a30 = "APP_N1MM_MISCTEXT:"
 
     b1 = True
     b2 = True
@@ -167,6 +168,8 @@ def phase3( call:str , Contest_name:str ):
     b27 = True
     b28 = True
     b29 = True
+    b30 = True
+    
 #----------------------------------------------------------------------------
     print("\n")
     print("*** ログシートの必要事項入力")
@@ -181,9 +184,11 @@ def phase3( call:str , Contest_name:str ):
 
 
     while okng :
-        print( "\n" )
+
         print('ALL Asia DX contestですか? [Y or N]')
         yesno = input("[Y or N] >> ")
+        print( "\n" )
+        
         if yesno == "Y" :
             AA_contest_flag = True
         elif yesno == "N":
@@ -191,10 +196,14 @@ def phase3( call:str , Contest_name:str ):
 
         if AA_contest_flag == True :
             print('コンテストはALL ASIA DX Contestです。')
+            print( "\n" )            
         elif AA_contest_flag == False :
             print('コンテストは通常のContestです。')
-        print('このコンテストでよろしいですか? [Y or N]')        
+           
+        print('このコンテストでよろしいですか? [Y or N]')
         yesno = input("[Y or N] >> ")
+        print( "\n" )
+        
         if yesno == "Y":
             okng =  False
         elif yesno == "N":
@@ -202,7 +211,6 @@ def phase3( call:str , Contest_name:str ):
         else:
             okng = True
 
-        print("\n")
 
     #------------------------------------------------------------------------
     #
@@ -213,7 +221,7 @@ def phase3( call:str , Contest_name:str ):
     okng = True
     
     while okng :
-        print("\n")
+
         print('コンテストナンバーを入力してください。')
         My_multi = input('>> ').upper()
         print( "\n" )
@@ -239,10 +247,9 @@ def phase3( call:str , Contest_name:str ):
     while okng :
         print("1.2GHzバンド以上のパワーコードをMからLに変換します。")
         print('パワーコードを変換しますか[Y or N]？')
-        yesno = input('>> ')
-        print('この判断は ---> ' + yesno )
+        yesno = input('[Y or N] >> ')
         print("\n")
-
+        print('この判断は ---> ' + yesno )
         if yesno == "Y":
             Power_code = True
         elif yesno == "N":
@@ -272,6 +279,8 @@ def phase3( call:str , Contest_name:str ):
     while okng :
         print('このログはJSTでロギングしていますか？')
         yesno = input("[Y or N] >> ")
+        print( "\n" )
+
         if yesno == "Y":
             UTC_JST = 'J'
             JST_convert_flag = False
@@ -298,7 +307,7 @@ def phase3( call:str , Contest_name:str ):
         while okng:
 
             print('ログ時刻UTCをJSTに変換しますか？ [U:UTC or J:JST]？')
-            UTC_JST = input('>> ').upper() 
+            UTC_JST = input(' [U:UTC or J:JST] >> ').upper() 
 
             if UTC_JST=="J" :
                 JST_convert_flag = True
@@ -347,7 +356,7 @@ def phase3( call:str , Contest_name:str ):
      
     #logsheet.write(line)
 
-    log_sheet.write( "<LOGSHEET TYPE=N1MM logger+ and JARL format conveter>"  + "\n")
+    log_sheet.write( "<LOGSHEET TYPE=N1MM+>"  + "\n")
 
     for log in logs:
 
@@ -437,7 +446,11 @@ def phase3( call:str , Contest_name:str ):
             
         if "COMMENT" not in log :
             COMMENT = " "
+            
+        if "APP_N1MM_MISCTEXT:" not in log :
+            APP_N1MM_MISCTEXT = " "
 
+            
     #--------------------------------------------------
     #
     #       JARL LOG作成　　ADIFフォーマットから要素抽出
@@ -750,7 +763,14 @@ def phase3( call:str , Contest_name:str ):
                 b2 = len(b1)
                 AGE = a[5+b2:6+b2+int(b1)]
                 AGE = AGE.rstrip()
-                
+
+            if "APP_N1MM_MISCTEXT:" in i:
+                a = i
+                b = a[18:20]
+                b1= b.rstrip(">")
+                b2 = len(b1)
+                APP_N1MM_MISCTEXT = a[19+b2:20+b2+int(b1)]
+                APP_N1MM_MISCTEXT = APP_N1MM_MISCTEXT.rstrip()                
 
     #--------------------------------------
     #
@@ -809,6 +829,10 @@ def phase3( call:str , Contest_name:str ):
                     line = QSO_DATE_JARL+" "+TIME_ON_JARL+" "+FREQ_JARL+" "+MODE+" "+CALL+" "+RST_SENT+" "+My_multi+" "+RST_RCVD+" "+ SECTION +"\n"
                     log_sheet.write( line )                    
 
+                elif "A1" == Contest_name :
+                    line = QSO_DATE_JARL+" "+TIME_ON_JARL+" "+FREQ_JARL+" "+MODE+" "+CALL+" "+RST_SENT+" "+My_multi+" "+RST_RCVD+" "+ APP_N1MM_MISCTEXT +"\n"
+                    log_sheet.write( line )
+                    
                 else :
                     line = QSO_DATE_JARL+" "+TIME_ON_JARL+" "+FREQ_JARL+" "+MODE+" "+CALL+" "+RST_SENT+" "+My_multi+" "+RST_RCVD+" "+ APP_N1MM_EXCHANGE1+"\n"
                     log_sheet.write( line )
