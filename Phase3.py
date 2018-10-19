@@ -347,7 +347,7 @@ def phase3( call:str , Contest_name:str ):
      
     #logsheet.write(line)
 
-    log_sheet.write( "<LOGSHEET TYPE=N1MM logger+ and JARL format conveter>"  + "\n")
+    log_sheet.write( "<LOGSHEET TYPE=N1MM+>"  + "\n")
 
     for log in logs:
 
