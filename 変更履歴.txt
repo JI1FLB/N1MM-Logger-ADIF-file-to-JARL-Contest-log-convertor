@@ -1,0 +1,6 @@
+変更履歴
+
+phase3.py	2018/10/19 9:47
+	<LOGSHEET TYPE=xxx yyy>タグは、JARLログ受付でxxxとyyy間のスペースが許容されないために、このタグのTYPE=パラメータをN1MM+に修正。
+	
+	
