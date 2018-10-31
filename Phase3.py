@@ -138,6 +138,7 @@ def phase3( call:str , Contest_name:str ):
     a28 = "AGE"
     a29 = "COMMENT"
     a30 = "APP_N1MM_MISCTEXT:"
+    a31 = "SRX"
 
     b1 = True
     b2 = True
@@ -169,6 +170,7 @@ def phase3( call:str , Contest_name:str ):
     b28 = True
     b29 = True
     b30 = True
+    b31 = True
     
 #----------------------------------------------------------------------------
     print("\n")
@@ -405,6 +407,9 @@ def phase3( call:str , Contest_name:str ):
         if "CQZ:" not in log :
             CQZ = " "
 
+        if "SRX:" not in log :
+            STX = " "
+
         if "STX:" not in log :
             STX = " "
 
@@ -556,43 +561,43 @@ def phase3( call:str , Contest_name:str ):
                 FREQ = FREQ.rstrip()
                 FREQ_f = float(FREQ)
                 
-                if   1.8 < FREQ_f and FREQ_f < 2.0 :
+                if   1.8 <= FREQ_f and FREQ_f <= 2.0 :
                     FREQ_JARL = "1.9"
                     
-                elif   3.5 < FREQ_f and FREQ_f < 4.0 :
+                elif   3.5 <= FREQ_f and FREQ_f <= 4.0 :
                     FREQ_JARL = "3.5"
                     
-                elif   7.0 < FREQ_f and FREQ_f < 7.3 :
+                elif   7.0 <= FREQ_f and FREQ_f <= 7.3 :
                     FREQ_JARL = "7"
                     
-                elif   14.0 < FREQ_f and FREQ_f < 14.35 :
+                elif   14.0 <= FREQ_f and FREQ_f <= 14.35 :
                     FREQ_JARL = "14"
                     
-                elif   21.0 < FREQ_f and FREQ_f < 21.45 :
+                elif   21.0 <= FREQ_f and FREQ_f <= 21.45 :
                     FREQ_JARL = "21"
                     
-                elif   28.0 < FREQ_f and FREQ_f < 29.7 :
+                elif   28.0 <= FREQ_f and FREQ_f <= 29.7 :
                     FREQ_JARL = "28"
                     
-                elif 50.0 < FREQ_f and FREQ_f < 54.0 :
+                elif 50.0 <= FREQ_f and FREQ_f <= 54.0 :
                     FREQ_JARL = "50"
                     
-                elif 144.0 < FREQ_f and FREQ_f < 146.0 :
+                elif 144.0 <= FREQ_f and FREQ_f <= 146.0 :
                     FREQ_JARL = "144"
                     
-                elif 430.0< FREQ_f and FREQ_f < 440.0 :
+                elif 430.0<= FREQ_f and FREQ_f <= 440.0 :
                     FREQ_JARL = "430"
 
-                elif 1240.0< FREQ_f and FREQ_f < 1300.0 :
+                elif 1240.0<= FREQ_f and FREQ_f <= 1300.0 :
                     FREQ_JARL = "1.2G"
 
-                elif 2300.0< FREQ_f and FREQ_f < 2450.0 :
+                elif 2300.0<= FREQ_f and FREQ_f <= 2450.0 :
                     FREQ_JARL = "2.4G"            
 
-                elif 5650.0< FREQ_f and FREQ_f < 5925.0 :
+                elif 5650.0<= FREQ_f and FREQ_f <= 5925.0 :
                     FREQ_JARL = "5.6G"
 
-                elif 10000.0< FREQ_f and FREQ_f < 10500.0 :
+                elif 10000.0<= FREQ_f and FREQ_f <= 10500.0 :
                     FREQ_JARL = "10.1G"
 
             if "COMMENT:" in i:
@@ -667,6 +672,14 @@ def phase3( call:str , Contest_name:str ):
                 b2 = len(b1)
                 CQZ = a[5+b2:6+b2+int(b1)]
                 CQZ = CQZ.rstrip()
+
+            if "SRX:" in i:
+                a = i
+                b = a[4:6]
+                b1= b.rstrip(">")
+                b2 = len(b1)
+                SRX = a[5+b2:6+b2+int(b1)]
+                SRX = SRX.rstrip()                
 
             if "STX:" in i:
                 a = i
@@ -825,8 +838,12 @@ def phase3( call:str , Contest_name:str ):
                     line = QSO_DATE_JARL+" "+TIME_ON_JARL+" "+FREQ_JARL+" "+MODE+" "+CALL+" "+RST_SENT+" "+My_multi+" "+RST_RCVD+" "+ COMMENT +"\n"
                     log_sheet.write( line )                    
 
-                elif "KCJ-JA" == Contest_name :
+                elif "KCJ" == Contest_name :
                     line = QSO_DATE_JARL+" "+TIME_ON_JARL+" "+FREQ_JARL+" "+MODE+" "+CALL+" "+RST_SENT+" "+My_multi+" "+RST_RCVD+" "+ SECTION +"\n"
+                    log_sheet.write( line )                    
+
+                elif "KCWA" == Contest_name :
+                    line = QSO_DATE_JARL+" "+TIME_ON_JARL+" "+FREQ_JARL+" "+MODE+" "+CALL+" "+RST_SENT+" "+My_multi+" "+ STX + " " + RST_RCVD+" "+ SECTION +" "+ SRX + "\n"
                     log_sheet.write( line )                    
 
                 elif "A1" == Contest_name :
