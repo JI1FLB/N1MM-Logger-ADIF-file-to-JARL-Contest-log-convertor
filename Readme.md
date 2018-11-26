@@ -1,105 +1,114 @@
-�@�@�@�@�@�@�@�@�@�@�@�@�@�@�@�@�@�@�@�@�@�@�@�@�@�@�@�@�@18/08/17 10:58:28
+　　　　　　　　　　　　　　　　　　　　　　　　　　　　　18/08/17 10:58:28
 
-�@�@�@�@�@�@�@N1MM Logger+ adif�t�@�C��-JARLcontestLog-�R���o�[�^�ɂ���
+　　　　　　　N1MM Logger+ adifファイル-JARLcontestLog-コンバータについて
 
-�@�@�@�@�@�@�@�@�@�@�@�@�@�@�@�@�@�@�@�@�@�@�@�@�@�@�@�@�@ JI1FLB/ Seiichi Tanaka
-
-
-1.�͂��߂�
-
-���̃c�[���́AN1MM Logger+�ō����R���e�X�g�ɎQ�������ꍇ�AJARL�R���e�X�g�ψ���w�肷��T�}���[�A���O�d�lVer2.0�ɕϊ�����K�v������BJARL��N1MM Logger+�𗘗p�����ꍇ�ɂ́AN1MM Logger+�̎��������炵�ĉ^�p���邱�ƂƁAWeb��̃��O�쐬�c�[����Carlbro�t�@�C���ŁA���O���o���邱�Ɛi�߂Ă���B
-���̃c�[���́A�R���e�X�g�I����A�ȒP�ɒ�o���O���쐬���邱�Ƃ��ł�����̂ł��B
+　　　　　　　　　　　　　　　　　　　　　　　　　　　　　 JI1FLB/ Seiichi Tanaka
 
 
+1.はじめに
 
-�Q�D�ړI
-
-���̃c�[���́AN1MM Logger+�ō����R���e�X�g�ɎQ�������ꍇ�AJARL�d�l�ŃR���e�X�g��Î҂Ƀ��O��v���ɒ�o�\�Ƃ�����̂ł��B
+このツールは、N1MM Logger+で国内コンテストに参加した場合、JARLコンテスト委員会が指定するサマリー、ログ仕様rev.2に変換する必要があり、ADIFファイルをrev2仕様のログに変換するものである。JARL主催のコンテストは、N1MM Logger+を利用した場合に、N1MM Logger+の時刻をずらして運用し、Web上のログ作成ツールでCarlbroファイルを添付してログを提出すること進めている。
+このツールは、提出ログを作成する以外に、ハムログ用のCSVファイルも生成します。
 
 
 
-�R�D�g����
+2.目的
 
-3.1�@python3.62���C���X�g�[��
-
-3.2�@��Ɨp�̃t�H���_���쐬�B
-
-3.2�@Github����_�E�����[�h����3.2���̃t�H���_�ɕۑ��B
-
-3.3�@N1MM Logger+��ADIF�t�@�C����3.2���̃t�H���_�ɕۑ��B
-
-3.4�@form.txt�ɕK�v�������L�����A3.2���̃t�H���_�ɕۑ��B
-
-3.5�@main.py���N������B�N����́A�K�C�_���X�ɏ]���A�K�v������I���A���͂���B
+このツールは、N1MM Logger+で国内コンテストに参加した場合、JARL仕様でコンテスト主催者にログを迅速に提出可能とことを目的としています。
 
 
 
-4�D�Ɛ�
+3.使い方
 
-���̃c�[���d�l�ɂ������ẮA���ȐӔC�ł����p���������B
+3.1　python3.62をインストール
 
+3.2　作業用のフォルダを作成。
 
+3.2　Githubからダウンロードした3.2項のフォルダに保存。
 
-5�D���C�Z���X
+3.3　N1MM Logger+でADIFファイルを3.2項のフォルダに保存。
 
-GNU GENERAL PUBLIC LICENSE�ɏ]���t���[�E�F�A�ł��B
+3.4　form.txtに必要事項を記入し、3.2項のフォルダに保存。
 
-
-
-6�D�Ō��
-
-���̃c�[���́A���߂�python���g���č�������́A�I�u�W�F�N�g�w���̒m���Apython�̒m��������΁A���X�}�[�g�Ȃ��̂���ꂽ�Ǝv���܂��B������A���X�}�[�g�ȃc�[������悤�ɓw�͂��Ă䂫�����ƍl���Ă��܂��B
-�����āA����̃c�[���́A�v�����܂܂ɍ���Ă������̂ŁA���W���[�������S���ł��Ă��܂���B
+3.5　main.pyを起動する。起動後は、ガイダンスに従い、必要事項を選択、入力する。
 
 
 
-7.�ύX����
+4.機能概要
+このツールはN1MM Logger+が生成するADIFファイルのパラメータを基に、JARLコンテストログRev.2やハムログ用CSVファイルを生成しています。
+
+・ファイル変換はADIFファイルのCONTEST名で判断しています。
+・得点計算はADIFパラメータの得点パラメータを集計しています。
+・マルチはADIFパラメータのマルチ関連パラメータでカウントしています。
+
+
+
+5．免責
+
+このツール仕様にあたっては、自己責任でご利用ください。
+
+
+
+6．ライセンス
+
+GNU GENERAL PUBLIC LICENSEに従うフリーウェアです。
+
+
+
+7．最後に
+
+このツールは、初めてpythonを使って作ったもの、オブジェクト指向の知識、pythonの知識があれば、よりスマートなものが作れたと思います。今後も、よりスマートなツール作れるように努力してゆきたいと考えています。
+加えて、今回のツールは、思いつくままに作っていったので、モジュール化も全くできていません。
+
+
+
+8.変更履歴
 
 2018-08-20
 
-*UTC�@JST�ϊ��Ŏ��Ԃ̕ϊ�������ɍs���Ȃ��B
+*UTC　JST変換で時間の変換が正常に行われない。
 
-->�����ɕύX���邱�Ƃŉ���
+->時分に変更することで解消
 
-*�^�C���\���������ł���Ƃ���A�����b�ƕ\�����Ă����B
+*タイム表示が時分であるところ、時分秒と表示していた。
 
-->�����ƕ\������悤�Ɏ����b�̕����񂩂�A�b���폜
+->時分と表示するように時分秒の文字列から、秒を削除
 
-*�n�����OCSV�t�@�C����RST��񂪌������Ă���Bug���C��
+*ハムログCSVファイルにRST情報が欠落しているBugを修正
 
 
 2018-08-21
 
-���̓K�C�_���X���ɔ��f����������
+入力ガイダンス時に判断処理を強化
 
 
 2018-09-27
 
-�v���O�����\���̌������BADIF�t�@�C������R���e�X�g���𒊏o�B�T�}���[�V�[�g�̃}���`���J�E���g���@�̌������BNTT�R���e�X�g�̃}���`�����J�E���g�\�Ƃ���B
+プログラム構造の見直し。ADIFファイルからコンテスト名を抽出。サマリーシートのマルチ数カウント方法の見直し。NTTコンテストのマルチ数をカウント可能とする。
 
 
 2018-09-27
-Birthday�R���e�X�g�̃}���`�v�Z�Ή�
+Birthdayコンテストのマルチ計算対応
 
 
 
-8.���m�̕s��ɂ���
-
-2019/09/24
-
-SCC-RTTY�R���e�X�g��ADI�t�@�C�������̃c�[���ɂ�����ƁA�G���[�𐶂���B
-
--> �����́AN1MM Logger+����������ADI�t�@�C���̏��v�f�̕��т��قȂ�B
-
-->  ���[�N�A���E���h�̓R���e�X�g��Î҂�Carlbro�t�@�C���Œ�o�\�B�v���O�����\�����������āABug Fixed�B
-
+8.既知の不具合について
 
 2019/09/24
 
-WPX,WAE�R���e�X�g�̃V���A���ԍ����\���ł��Ȃ��B���_�v�Z���ł��Ȃ��B
+SCC-RTTYコンテストのADIファイルをこのツールにかけると、エラーを生じる。
 
-���F�n�����O�p��CSV�t�@�C���͐����\
+-> 原因は、N1MM Logger+が生成するADIファイルの情報要素の並びが異なる。
+
+->  ワークアラウンドはコンテスト主催者にCarlbroファイルで提出可能。プログラム構造を見直して、Bug Fixed。
 
 
--> ���[�N�A���E���h�̓R���e�X�g��Î҂�Carlbro�t�@�C���Œ�o�\�B���݁A�v���O�����\���̔��{�I�Ȍ������āA�V���A���ԍ������O�ɋL�ڂ��邱�Ƃ��������B�A���A���_�v�Z�̓v���O�����K�͂��傫���Ȃ邽�߂ɑΏ����邩�s���B
+2019/09/24
+
+WPX,WAEコンテストのシリアル番号が表示できない。得点計算ができない。
+
+※：ハムログ用のCSVファイルは生成可能
+
+
+-> ワークアラウンドはコンテスト主催者にCarlbroファイルで提出可能。現在、プログラム構造の抜本的な見直して、シリアル番号をログに記載することを検討中。但し、得点計算はプログラム規模が大きくなるために対処するか不明。
 
