@@ -1,3 +1,11 @@
+#--------------------------------------------------------------------
+#   phase3 ：ログ作成　フェーズ３処理
+#       変更履歴：2019/12/03　KCWA CW contestの001形式（３桁）に対応するため、SRX,STXに"000"パティングして、３桁に桁数調整
+#                            ※WPXを考慮すれば、００１形式（４桁）であるべきであるが、３桁で暫定対処
+#
+
+
+
 def phase3( call:str , Contest_name:str ):
 
     import os
@@ -140,38 +148,7 @@ def phase3( call:str , Contest_name:str ):
     a30 = "APP_N1MM_MISCTEXT:"
     a31 = "SRX"
 
-    b1 = True
-    b2 = True
-    b3 = True
-    b4 = True
-    b5 = True
-    b6 = True
-    b7 = True
-    b8 = True
-    b9 = True
-    b10 = True
-    b11 = True
-    b12 = True
-    b13 = True
-    b14 = True
-    b15 = True
-    b16 = True
-    b17 = True
-    b18 = True
-    b19 = True
-    b20 = True
-    b21 = True
-    b22 = True
-    b23 = True
-    b24 = True
-    b25 = True
-    b26 = True
-    b27 = True
-    b28 = True
-    b29 = True
-    b30 = True
-    b31 = True
-    
+
 #----------------------------------------------------------------------------
     print("\n")
     print("*** ログシートの必要事項入力")
@@ -484,7 +461,6 @@ def phase3( call:str , Contest_name:str ):
                 b2 = len(b1)
                 QSO_DATE = a[10+b2:11+b2+int(b1)]
                 QSO_DATE = QSO_DATE.rstrip()
-    #            print(" 0:" QSO_DATE )
                 
             if "TIME_ON:" in i:
                 a = i
@@ -493,39 +469,34 @@ def phase3( call:str , Contest_name:str ):
                 b2 = len(b1)
                 TIME_ON = a[9+b2:10+b2+int(b1)-3]       #   6桁を4桁に変更。秒単位を削除。
                 TIME_ON = TIME_ON.rstrip()
-    #            print("1: "+TIME_ON )
 
                 dtstr= QSO_DATE +" "+ TIME_ON
-    #            print( "2: "+dtstr )
                 if JST_convert_flag == True : 
                     dt = datetime.strptime(dtstr, '%Y%m%d %H%M')+timedelta(hours=9)
                     dHL = dt
-    #                print("3: "+ str(dt) )
+
                 elif JST_convert_flag == False : 
                     dt = datetime.strptime(dtstr, "%Y%m%d %H%M")
                     dHL = dt
-    #                print("4: "+ str(dt) )
+
 
                 
                 t=str(dt).split(" ")
                 
                 QSO_DATE_JARL = t[0]
-    #            print("6: "+ QSO_DATE_JARL )
+
                 c1 = str(t[1])
                 c2 = c1[0:5]
-                TIME_ON_JARL =  c2
-    #            print("7: "+ TIME_ON_JARL )                
+                TIME_ON_JARL =  c2             
 
 
                 dHL=dt.strftime("%Y/%m/%d")
-    #            print("5: "+ dHL )
-                
-    #            print( "8: "+dHL )
+
                 tHL=str( dHL ).split(" ")
                 QSO_DATE_HL = tHL[0]
-    #            print( "9: "+QSO_DATE_HL )
+
                 TIME_ON_HL =  c2  + UTC_JST
-    #            print("10: "+ TIME_ON_HL )
+
                         
 
             if "SECTION:" in i:
@@ -679,7 +650,9 @@ def phase3( call:str , Contest_name:str ):
                 b1= b.rstrip(">")
                 b2 = len(b1)
                 SRX = a[5+b2:6+b2+int(b1)]
-                SRX = SRX.rstrip()                
+                SRX = SRX.rstrip()
+                SRX = "0000"+SRX
+                SRX = SRX[-3:]
 
             if "STX:" in i:
                 a = i
@@ -688,6 +661,8 @@ def phase3( call:str , Contest_name:str ):
                 b2 = len(b1)
                 STX = a[5+b2:6+b2+int(b1)]
                 STX = STX.rstrip()
+                STX = '0000'+STX
+                STX = STX[-3:]
 
             if "APP_N1MM_EXCHANGE1:" in i:
                 a = i
@@ -886,7 +861,6 @@ def phase3( call:str , Contest_name:str ):
     #   JARL V2のファィル出力
     #       summary file とlogsheetを結合する
     #
-
 
 
     log_sheet = open( log_file ,"r",encoding='utf-8')
